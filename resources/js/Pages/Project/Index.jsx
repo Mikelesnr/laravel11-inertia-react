@@ -1,4 +1,5 @@
 import Pagination from "@/Components/Pagination";
+import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
@@ -37,7 +38,10 @@ export default function Index({ auth, projects }) {
                                 </thead>
                                 <tbody>
                                     {projects.data.map((project) => (
-                                        <tr className="bg-white border-b dark:bg-gray-800 dark:boarder-gray-700">
+                                        <tr
+                                            className="bg-white border-b dark:bg-gray-800 dark:boarder-gray-700"
+                                            key={project.id}
+                                        >
                                             <th className="px-3 py-2">
                                                 {project.id}
                                             </th>
@@ -52,7 +56,20 @@ export default function Index({ auth, projects }) {
                                                 {project.name}
                                             </td>
                                             <td className="px-3 py-2">
-                                                {project.status}
+                                                <span
+                                                    className={
+                                                        "px-2 py-1 rounded text-white " +
+                                                        PROJECT_STATUS_CLASS_MAP[
+                                                            project.status
+                                                        ]
+                                                    }
+                                                >
+                                                    {
+                                                        PROJECT_STATUS_TEXT_MAP[
+                                                            project.status
+                                                        ]
+                                                    }
+                                                </span>
                                             </td>
                                             <td className="px-3 py-2">
                                                 {project.created_at}
